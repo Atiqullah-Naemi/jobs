@@ -3,7 +3,7 @@ import { getFirestore } from "firebase-admin/firestore";
 import path from "path";
 
 export const admin = initializeApp({
-  credential: cert(path.join(__dirname, "../../serviceAccountKey.json")),
+  credential: cert(path.join(__dirname, "../../key.json")),
   databaseURL: process.env.DBURL,
 });
 
