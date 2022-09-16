@@ -1,4 +1,4 @@
 import { users } from "./user";
-import { properties } from "./property";
+import { jobs } from "./job";
 
-export const typeDefs = [users, properties];
+export const typeDefs = [users, jobs];

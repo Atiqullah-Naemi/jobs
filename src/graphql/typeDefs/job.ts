@@ -1,6 +1,6 @@
 import { gql } from "apollo-server";
 
-export const properties = gql`
+export const jobs = gql`
   input ListerInput {
     username: String!
     imageUrl: String!
@@ -9,47 +9,37 @@ export const properties = gql`
     username: String!
     imageUrl: String!
   }
-  type Property {
+  type Job {
     address: String!
     suburb: String!
     postcode: Int!
     content: String!
-    price: String
-    bedrooms: String
-    bathrooms: String
-    carparks: String
     type: String
-    landSize: String
-    buildingSize: String
-    imageUrl: String!
+    salary: String
     lister: ListerOutput
     message: String!
     code: Int!
+    tilte: String!
     createdAt: String
   }
-  type AllProperties {
+  type AllJobs {
     code: Int!
     message: String!
-    data: [Property]!
+    data: [Job]!
   }
   type Query {
-    getProperties: AllProperties!
+    getJobs: AllJobs!
   }
   type Mutation {
-    createProperty(
+    createJob(
       address: String!
       suburb: String!
       postcode: Int!
       content: String!
-      price: String!
-      bedrooms: String!
-      bathrooms: String!
-      carparks: String!
-      type: String!
-      landSize: String!
-      buildingSize: String!
-      imageUrl: String
-      lister: ListerInput!
-    ): Property!
+      type: String
+      salary: String
+      lister: ListerInput
+      tilte: String!
+    ): Job!
   }
 `;

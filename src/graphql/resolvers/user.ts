@@ -31,22 +31,18 @@ export const users = {
           maxAge: 1000 * 60 * 60 * 24 * 7,
         });
 
-        return res.status(200).send({
-          data: {
-            login: {
-              code: 200,
-              message: "user login successfully",
-              token: user?.user?.accessToken,
-            },
-          },
-        });
+        return {
+          code: 200,
+          message: "user login successfully",
+          token: user?.user?.accessToken,
+        };
       } catch (err: any) {
         console.log({ err });
         if (err.code === "auth/user-not-found") {
-          return res.status(400).send({
+          return {
             code: 400,
             message: "User not found",
-          });
+          };
         }
         if (err.code === "auth/wrong-password") {
           return res.status(400).send({

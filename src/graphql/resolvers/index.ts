@@ -1,13 +1,13 @@
 import { users } from "./user";
-import { properties } from "./properties";
+import { jobs } from "./jobs";
 
 export const resolvers = {
   Query: {
     ...users.Query,
-    ...properties.Query,
+    ...jobs.Query,
   },
   Mutation: {
     ...users.Mutation,
-    ...properties.Mutation,
+    ...jobs.Mutation,
   },
 };

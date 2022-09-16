@@ -3,20 +3,16 @@ export interface Lister {
   imageUrl: string;
 }
 
-export interface Property {
+export interface Job {
   address: string;
   suburb: string;
   postcode: number;
   content: string;
-  price: string;
-  bedrooms: string;
-  bathrooms: string;
-  carparks: string;
   type: string;
-  landSize: string;
-  buildingSize: string;
-  imageUrl?: string;
-  lister?: Lister;
+  salary: string;
+  lister: Lister;
   message: string;
   code: number;
+  tilte: string;
+  createdAt: string;
 }

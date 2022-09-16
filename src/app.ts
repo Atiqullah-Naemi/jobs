@@ -1,15 +1,13 @@
-import { ApolloServer } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
 import { initializeApp } from "firebase/app";
+import * as dotenv from "dotenv";
 
-const PORT = 5001;
+dotenv.config();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
-};
+const PORT = 4000;
 
 initializeApp({
   apiKey: process.env.API_KEY,
@@ -26,13 +24,16 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     introspection: true,
     typeDefs,
     resolvers,
-    context: (ctx) => {
-      return ctx.req;
-    },
+    context: ({ req }) => req,
   });
 
-  const { url } = await server.listen();
-  console.log(`🚀 Server ready at ${url}`);
+  const app = express();
+  await server.start();
+  server.applyMiddleware({ app, path: "/graphql" });
+
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}${server.graphqlPath}`);
+  });
 }
 
 startApolloServer(typeDefs, resolvers);
