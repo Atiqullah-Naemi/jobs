@@ -1,8 +1,3 @@
-export interface Lister {
-  username: string;
-  imageUrl: string;
-}
-
 export interface Job {
   address: string;
   suburb: string;
@@ -10,7 +5,7 @@ export interface Job {
   content: string;
   type: string;
   salary: string;
-  lister: Lister;
+  company: string;
   message: string;
   code: number;
   tilte: string;

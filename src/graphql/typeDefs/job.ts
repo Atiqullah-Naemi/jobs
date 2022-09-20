@@ -1,14 +1,6 @@
 import { gql } from "apollo-server";
 
 export const jobs = gql`
-  input ListerInput {
-    username: String!
-    imageUrl: String!
-  }
-  type ListerOutput {
-    username: String!
-    imageUrl: String!
-  }
   type Job {
     address: String!
     suburb: String!
@@ -16,7 +8,7 @@ export const jobs = gql`
     content: String!
     type: String
     salary: String
-    lister: ListerOutput
+    company: String
     message: String!
     code: Int!
     tilte: String!
@@ -38,7 +30,7 @@ export const jobs = gql`
       content: String!
       type: String
       salary: String
-      lister: ListerInput
+      company: String
       tilte: String!
     ): Job!
   }

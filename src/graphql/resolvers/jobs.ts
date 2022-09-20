@@ -32,7 +32,7 @@ export const jobs = {
         content,
         type,
         salary,
-        lister,
+        company,
         tilte,
       } = args;
 
@@ -44,7 +44,7 @@ export const jobs = {
           content,
           type,
           salary,
-          lister,
+          company,
           tilte,
           createdAt: new Date(),
           // imageUrl: `https://firebasestorage.googleapis.com/v0/b/${process.env.STORAGE_BUCKET}/o/noImg.jpg`,
@@ -54,6 +54,7 @@ export const jobs = {
 
         await docRef.add(job);
 
+        console.log({ docRef });
         return {
           code: 200,
           message: "Job created successfully",
