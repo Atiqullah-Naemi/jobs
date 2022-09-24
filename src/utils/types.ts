@@ -3,8 +3,8 @@ export interface Job {
   suburb: string;
   postcode: number;
   content: string;
-  type: string;
-  salary: string;
+  isRemote: boolean;
+  price: string;
   company: string;
   message: string;
   code: number;

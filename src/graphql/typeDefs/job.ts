@@ -6,8 +6,8 @@ export const jobs = gql`
     suburb: String!
     postcode: Int!
     content: String!
-    type: String
-    salary: String
+    isRemote: Boolean
+    price: String
     company: String
     message: String!
     code: Int!
@@ -28,8 +28,8 @@ export const jobs = gql`
       suburb: String!
       postcode: Int!
       content: String!
-      type: String
-      salary: String
+      isRemote: Boolean!
+      price: String
       company: String
       tilte: String!
     ): Job!
