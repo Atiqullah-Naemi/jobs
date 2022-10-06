@@ -1,5 +1,5 @@
 import { db } from "../../utils/firebase";
-import { Job } from "../../utils/types";
+import { Token, Job } from "../../utils/types";
 
 export const jobs = {
   Query: {
@@ -24,7 +24,15 @@ export const jobs = {
     },
   },
   Mutation: {
-    createJob: async (_: undefined, args: Job) => {
+    createJob: async (_: undefined, args: Job, { token }: { token: Token }) => {
+      const { username } = token;
+
+      if (!username)
+        return {
+          code: 401,
+          message: "you are not authorized",
+        };
+
       const {
         address,
         suburb,
@@ -47,6 +55,7 @@ export const jobs = {
           company,
           tilte,
           createdAt: new Date(),
+          createdBy: username,
           // imageUrl: `https://firebasestorage.googleapis.com/v0/b/${process.env.STORAGE_BUCKET}/o/noImg.jpg`,
         };
 
@@ -54,7 +63,6 @@ export const jobs = {
 
         await docRef.add(job);
 
-        console.log({ docRef });
         return {
           code: 200,
           message: "Job created successfully",

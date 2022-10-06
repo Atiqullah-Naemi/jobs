@@ -2,11 +2,14 @@ import { db } from "../../utils/firebase";
 import { ApolloError } from "apollo-server";
 import { Request, Response } from "express";
 import {
+  User,
+  updateProfile,
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 interface ExpressResponse {
   req: Request;
@@ -26,15 +29,26 @@ export const users = {
           password
         );
 
-        res.cookie("token", user?.user?.accessToken, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 7,
+        const { displayName: username } = user?.user;
+
+        console.log(user?.user, " user?.user");
+        // res.cookie("token", user?.user?.accessToken, {
+        //   httpOnly: true,
+        //   maxAge: 1000 * 60 * 60 * 24 * 7,
+        // });
+
+        const getUser = await db.collection("users").doc(username).get();
+
+        if (!getUser.exists) return { code: 400, message: "user not found" };
+
+        const token = jwt.sign({ username }, <string>process.env.JWT_SECRET, {
+          expiresIn: 60 * 60,
         });
 
         return {
           code: 200,
           message: "user login successfully",
-          token: user?.user?.accessToken,
+          token,
         };
       } catch (err: any) {
         console.log({ err });
@@ -85,6 +99,12 @@ export const users = {
           email,
           password
         );
+
+        if (user?.user?.uid) {
+          await updateProfile(auth.currentUser as User, {
+            displayName: username,
+          });
+        }
 
         const userCredentials = {
           username: newUser.username,

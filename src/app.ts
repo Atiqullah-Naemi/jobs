@@ -4,6 +4,7 @@ import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
 import { initializeApp } from "firebase/app";
 import * as dotenv from "dotenv";
+import { contextMiddleware } from "./utils/authMiddleware";
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     introspection: true,
     typeDefs,
     resolvers,
-    context: ({ req }) => req,
+    context: contextMiddleware,
   });
 
   const app = express();

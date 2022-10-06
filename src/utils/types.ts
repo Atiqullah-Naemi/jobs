@@ -11,3 +11,9 @@ export interface Job {
   tilte: string;
   createdAt: string;
 }
+
+export interface Token {
+  username: string;
+  iat: number;
+  exp: number;
+}
